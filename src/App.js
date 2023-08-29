@@ -1,25 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import SetPlayersPage from "./Pages/SetPlayers/index.jsx";
+import SetGridPage from "./Pages/SetGrid/index.jsx";
+import PlayingGame from "./Pages/PlayingGame/index.js"
+
+const router = createBrowserRouter([
+  { index: true, element: <SetPlayersPage /> },
+  { path: "/setGrid", element: <SetGridPage /> },
+  { path: "/playingGame", element: <PlayingGame /> },
+  
+]);
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
