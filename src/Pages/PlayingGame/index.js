@@ -17,7 +17,7 @@ export default function Board() {
     for (let i = 0; i < numRows; i++) {
       let rowToAdd = [];
       for (let j = 0; j < numColumns; j++) {
-        rowToAdd.push({ rowIndex: i, columnIndex: j, value: "" });
+        rowToAdd.push({ rowIndex: i, columnIndex: j, value: null });
       }
       arrayBoard.push(rowToAdd);
     }
@@ -32,7 +32,7 @@ export default function Board() {
           {row.map(function (cell) {
             return (
               <td>
-                <Square rowIndex={cell.rowIndex} cellIndex={cell.columnIndex} />
+                <Square rowIndex={cell.rowIndex} columnIndex={cell.columnIndex} />
               </td>
             );
           })}

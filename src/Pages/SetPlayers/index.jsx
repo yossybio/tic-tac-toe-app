@@ -20,7 +20,7 @@ export default function SetPlayersPage() {
     <>
       <Stack alignItems="center" spacing={8}>
         <img
-          style={{ width: "65%", height: "60%" }}
+          style={{ width: "60%", height: "50%" }}
           src="https://thumbs.dreamstime.com/z/tic-tac-toe-1652844.jpg?w=992"
           alt="Set players main img"
         />
