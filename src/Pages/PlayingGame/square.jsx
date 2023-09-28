@@ -24,6 +24,7 @@ export default function Square({ rowIndex, columnIndex }) {
     }, 1000);
   };
 
+
   return (
     <button
       style={{ width: 50, height: 50 }}
