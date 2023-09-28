@@ -1,19 +1,40 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux/es/hooks/useSelector";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  settingTheGameIsStarted,
+  setPlayerStep,
+  setIsIdleStatus,
+} from "../../Redux/gameDataSlice";
+import { store } from "../../Redux/store";
 
 export default function Square({ rowIndex, columnIndex }) {
-  const currentTurnPlayer = useSelector(
-    (state) => state.gameData.gameStatus.currentTurnPlayer
-  );
-
-  const [isClicked, setIsClicked] = useState(false);
+  const { isGameStarted, arrayBoard, currentTurnPlayer, isIdleStatus } =
+    useSelector((state) => state.gameData.gameStatus);
+  const dispatch = useDispatch();
 
   const clickHandler = () => {
-    setIsClicked(true);
+    if (!isGameStarted) {
+      dispatch(settingTheGameIsStarted());
+    }
+
+    dispatch(setIsIdleStatus({ status: true }));
+    setTimeout(() => {
+      dispatch(setPlayerStep({ rowIndex, columnIndex, currentTurnPlayer }));
+      dispatch(setIsIdleStatus({ status: false }));
+    }, 1000);
   };
+
   return (
-    <button style={{ width: 50, height: 50 }} onClick={clickHandler}>
-      {isClicked ? currentTurnPlayer : ""}
+    <button
+      style={{ width: 50, height: 50 }}
+      onClick={clickHandler}
+      disabled={
+        arrayBoard[rowIndex][columnIndex].value !== null || isIdleStatus
+      }
+    >
+      {arrayBoard[rowIndex][columnIndex].value === null
+        ? ""
+        : arrayBoard[rowIndex][columnIndex].value}
     </button>
   );
 }
