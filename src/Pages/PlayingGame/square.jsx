@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   settingTheGameIsStarted,
   setPlayerStep,
   setIsIdleStatus,
 } from "../../Redux/gameDataSlice";
-import { store } from "../../Redux/store";
 
 export default function Square({ rowIndex, columnIndex }) {
   const { isGameStarted, arrayBoard, currentTurnPlayer, isIdleStatus } =
@@ -23,7 +22,6 @@ export default function Square({ rowIndex, columnIndex }) {
       dispatch(setIsIdleStatus({ status: false }));
     }, 1000);
   };
-
 
   return (
     <button

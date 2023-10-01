@@ -24,6 +24,9 @@ const gameDataSlice = createSlice({
     setArrayBoard: (state, action) => {
       state.gameStatus.arrayBoard = action.payload;
     },
+    setCurrentTurnPlayer: (state, action) => {
+      state.gameStatus.currentTurnPlayer = action.payload;
+    },
     settingTheGameIsStarted: (state, action) => {
       state.gameStatus.isGameStarted = true;
     },
@@ -46,7 +49,9 @@ const gameDataSlice = createSlice({
     },
     searchingForWinner: (state, action) => {
       let isWinnerExist = false;
-      const { numRows, numColumns } = action.payload;
+      const { rows: numRows, columns: numColumns } = JSON.parse(
+        localStorage.getItem("gridSize")
+      );
       const { arrayBoard: gameBoard, currentTurnPlayer } = state.gameStatus;
 
       //Checking for winner on rows:
@@ -151,6 +156,22 @@ const gameDataSlice = createSlice({
       state.gameStatus.isWinnerExist = false;
       state.gameStatus.isGameOver = false;
     },
+    setLoadDataToStore: (state, action) => {
+      switch (action.payload.key) {
+        case "numOfPlayers":
+          state.gameMode.numOfPlayers = action.payload.value;
+          break;
+        case "gridSize":
+          state.gameMode.gridSize = action.payload.value;
+          break;
+        case "gameStatus":
+          state.gameMode.gameStatus = action.payload.value;
+          break;
+
+        default:
+          break;
+      }
+    },
   },
 });
 
@@ -158,6 +179,7 @@ export const {
   setPlayersMode,
   setGridSize,
   setArrayBoard,
+  setCurrentTurnPlayer,
   settingTheGameIsStarted,
   setPlayerStep,
   switchPlayerTurn,
@@ -167,6 +189,7 @@ export const {
   checkingForGameOver,
   settingGameOverStatusOn,
   resetStore,
+  setLoadDataToStore,
 } = gameDataSlice.actions;
 
 export default gameDataSlice.reducer;

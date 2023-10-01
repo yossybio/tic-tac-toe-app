@@ -30,6 +30,7 @@ export default function WinnerModal(props) {
 
   const clickHandler = () => {
     dispatch(resetStore());
+    localStorage.clear();
     navigate("/");
   };
 

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Square from "./square.jsx";
 import {
   setArrayBoard,
+  setCurrentTurnPlayer,
   searchingForWinner,
   settingWinnerStatusOn,
   checkingForGameOver,
@@ -10,6 +11,7 @@ import {
   switchPlayerTurn,
   setPlayerStep,
   setIsIdleStatus,
+  setLoadDataToStore,
 } from "../../Redux/gameDataSlice.js";
 import store from "../../Redux/store.js";
 import Stack from "@mui/material/Stack";
@@ -27,6 +29,7 @@ export default function Board() {
     currentTurnPlayer,
     isWinnerExist,
     isGameOver,
+    isIdleStatus,
   } = useSelector((state) => state.gameData.gameStatus);
 
   const USER_VS_CPU_MODE = 1;
@@ -35,6 +38,22 @@ export default function Board() {
   const [openGameOverModal, setOpenGameOverModal] = useState(false);
 
   useEffect(() => {
+    const loadedData = JSON.parse(localStorage.getItem("gameStatus"));
+    if (loadedData) {
+      dispatch(
+        setLoadDataToStore({
+          key: "gameStatus",
+          value: loadedData,
+        })
+      );
+
+      dispatch(setArrayBoard(loadedData.arrayBoard));
+      dispatch(setCurrentTurnPlayer(loadedData.currentTurnPlayer));
+      setOpenWinnerModal(loadedData.isWinnerExist);
+      setOpenGameOverModal(loadedData.isGameOver);
+      return;
+    }
+
     let arrayBoard = [];
     for (let i = 0; i < numRows; i++) {
       let rowToAdd = [];
@@ -45,6 +64,17 @@ export default function Board() {
     }
 
     dispatch(setArrayBoard(arrayBoard));
+
+    const newGameStatusObj = {
+      isGameStarted,
+      arrayBoard,
+      currentTurnPlayer,
+      isWinnerExist,
+      isGameOver,
+      isIdleStatus,
+    };
+
+    localStorage.setItem("gameStatus", JSON.stringify(newGameStatusObj));
   }, []);
 
   useEffect(() => {
@@ -64,12 +94,26 @@ export default function Board() {
       } else {
         dispatch(settingWinnerStatusOn(currentTurnPlayer));
       }
+
+      const currentTurnPlayerState =
+        store.getState().gameData.gameStatus.currentTurnPlayer;
+      const newGameStatusObj = {
+        isGameStarted,
+        arrayBoard: [...gameBoard],
+        currentTurnPlayer: currentTurnPlayerState,
+          isWinnerExist,
+        isGameOver,
+        isIdleStatus,
+      };
+      localStorage.setItem("gameStatus", JSON.stringify(newGameStatusObj));
     }
   }, [gameBoard]);
 
   useEffect(() => {
     const isComputerPlayerTurn =
-      numOfPlayers === USER_VS_CPU_MODE && currentTurnPlayer === "O";
+      numOfPlayers === USER_VS_CPU_MODE &&
+      currentTurnPlayer === "O" &&
+      isGameStarted;
     if (isComputerPlayerTurn) {
       let isRandomStepFound = false;
       let rowIndex, columnIndex;
