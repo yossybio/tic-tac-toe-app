@@ -7,6 +7,7 @@ const gameDataSlice = createSlice({
     gameStatus: {
       isGameStarted: false,
       currentTurnPlayer: "X",
+      computerPlayerSymbol: null,
       arrayBoard: [],
       isIdleStatus: false,
       isWinnerExist: false,
@@ -27,8 +28,12 @@ const gameDataSlice = createSlice({
     setCurrentTurnPlayer: (state, action) => {
       state.gameStatus.currentTurnPlayer = action.payload;
     },
-    settingTheGameIsStarted: (state, action) => {
-      state.gameStatus.isGameStarted = true;
+    setComputerPlayerSymbol: (state, action) => {
+      state.gameStatus.computerPlayerSymbol =
+        action.payload.computerPlayerSymbol;
+    },
+    settingIsGameStarted: (state, action) => {
+      state.gameStatus.isGameStarted = action.payload.value;
     },
     setPlayerStep: (state, action) => {
       const rowIndex = action.payload.rowIndex;
@@ -152,11 +157,12 @@ const gameDataSlice = createSlice({
       state.gameMode.gridSize = { rows: null, columns: null };
       state.gameStatus.isGameStarted = false;
       state.gameStatus.currentTurnPlayer = "X";
+      state.gameStatus.computerPlayerSymbol = null;
       state.gameStatus.arrayBoard = [];
       state.gameStatus.isWinnerExist = false;
       state.gameStatus.isGameOver = false;
     },
-    setLoadDataToStore: (state, action) => {
+    setLoadedDataToStore: (state, action) => {
       switch (action.payload.key) {
         case "numOfPlayers":
           state.gameMode.numOfPlayers = action.payload.value;
@@ -165,7 +171,10 @@ const gameDataSlice = createSlice({
           state.gameMode.gridSize = action.payload.value;
           break;
         case "gameStatus":
-          state.gameMode.gameStatus = action.payload.value;
+          state.gameMode.gameStatus = {
+            ...state.gameMode.gameStatus,
+            ...action.payload.value,
+          };
           break;
 
         default:
@@ -180,7 +189,8 @@ export const {
   setGridSize,
   setArrayBoard,
   setCurrentTurnPlayer,
-  settingTheGameIsStarted,
+  setComputerPlayerSymbol,
+  settingIsGameStarted,
   setPlayerStep,
   switchPlayerTurn,
   setIsIdleStatus,
@@ -189,7 +199,7 @@ export const {
   checkingForGameOver,
   settingGameOverStatusOn,
   resetStore,
-  setLoadDataToStore,
+  setLoadedDataToStore,
 } = gameDataSlice.actions;
 
 export default gameDataSlice.reducer;

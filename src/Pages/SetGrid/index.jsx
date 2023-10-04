@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setGridSize, setLoadDataToStore } from "../../Redux/gameDataSlice";
+import { setGridSize, setLoadedDataToStore } from "../../Redux/gameDataSlice";
 
 export default function SetGridPage() {
   const navigate = useNavigate();
@@ -15,9 +15,8 @@ export default function SetGridPage() {
   useEffect(() => {
     const loadedData = localStorage.getItem("gridSize");
     if (loadedData) {
-      // dispatch(setSavedDataInStore({ savedGameMode: JSON.parse(loadedData) }));
       dispatch(
-        setLoadDataToStore({
+        setLoadedDataToStore({
           key: "gridSize",
           value: JSON.parse(loadedData),
         })
@@ -26,11 +25,6 @@ export default function SetGridPage() {
   }, []);
   
   const savingDataInLocalStorage = (gridSize) => {
-    // const existingData = JSON.parse(localStorage.getItem("gameMode"));
-    // localStorage.setItem(
-    //   "gameMode",
-    //   JSON.stringify({ ...existingData, gridSize: gridSize })
-    // );
     localStorage.setItem("gridSize", JSON.stringify(gridSize));
   };
 
@@ -42,6 +36,7 @@ export default function SetGridPage() {
 
   const disableButtonHandler = (selectedGridSize) => {
     return (
+      localStorage.getItem("gridSize") && 
       JSON.stringify(selectedGridSize) !== JSON.stringify(gridSize) &&
       gridSize.rows &&
       gridSize.columns

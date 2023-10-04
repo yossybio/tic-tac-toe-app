@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  settingTheGameIsStarted,
+  settingIsGameStarted,
   setPlayerStep,
   setIsIdleStatus,
 } from "../../Redux/gameDataSlice";
@@ -13,7 +13,7 @@ export default function Square({ rowIndex, columnIndex }) {
 
   const clickHandler = () => {
     if (!isGameStarted) {
-      dispatch(settingTheGameIsStarted());
+      dispatch(settingIsGameStarted({value: true}));
     }
 
     dispatch(setIsIdleStatus({ status: true }));
