@@ -163,23 +163,10 @@ const gameDataSlice = createSlice({
       state.gameStatus.isGameOver = false;
     },
     setLoadedDataToStore: (state, action) => {
-      switch (action.payload.key) {
-        case "numOfPlayers":
-          state.gameMode.numOfPlayers = action.payload.value;
-          break;
-        case "gridSize":
-          state.gameMode.gridSize = action.payload.value;
-          break;
-        case "gameStatus":
-          state.gameMode.gameStatus = {
-            ...state.gameMode.gameStatus,
-            ...action.payload.value,
-          };
-          break;
-
-        default:
-          break;
-      }
+      state.gameStatus = {
+        ...state.gameStatus,
+        ...action.payload.values,
+      };
     },
   },
 });

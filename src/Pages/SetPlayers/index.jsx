@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
   setPlayersMode,
-  setLoadedDataToStore,
   setComputerPlayerSymbol,
 } from "../../Redux/gameDataSlice";
 import { Stack } from "@mui/material";
@@ -18,29 +17,12 @@ export default function SetPlayersPage() {
     localStorage.setItem("numOfPlayers", JSON.stringify(numOfPlayers));
   };
 
-  useEffect(() => {
-    const loadedData = localStorage.getItem("numOfPlayers");
-    if (loadedData) {
-      dispatch(
-        setLoadedDataToStore({
-          key: "numOfPlayers",
-          value: JSON.parse(loadedData),
-        })
-      );
-    }
-  }, []);
-
   const clickHandler = (gameMode) => {
     const { numOfPlayers } = gameMode;
     dispatch(setPlayersMode(numOfPlayers));
     dispatch(setComputerPlayerSymbol({ computerPlayerSymbol: "O" }));
     savingDataInLocalStorage(numOfPlayers);
     navigate("/setGrid");
-  };
-
-  const disabledButtonHandler = (selectedGameMode) => {
-    const numOfPlayers = localStorage.getItem("numOfPlayers");
-    return selectedGameMode !== numOfPlayers && numOfPlayers;
   };
 
   return (
@@ -57,7 +39,6 @@ export default function SetPlayersPage() {
             onClick={() => {
               clickHandler({ numOfPlayers: USER_VS_CPU_MODE });
             }}
-            disabled={disabledButtonHandler(USER_VS_CPU_MODE)}
           >
             שחקן נגד מחשב
           </button>
@@ -66,7 +47,6 @@ export default function SetPlayersPage() {
             onClick={() => {
               clickHandler({ numOfPlayers: USER_VS_USER_MODE });
             }}
-            disabled={disabledButtonHandler(USER_VS_USER_MODE)}
           >
             שחקן נגד שחקן
           </button>

@@ -1,23 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Square from "./square.jsx";
-import {
-  setArrayBoard,
-  setCurrentTurnPlayer,
-  searchingForWinner,
-  settingWinnerStatusOn,
-  checkingForGameOver,
-  settingGameOverStatusOn,
-  switchPlayerTurn,
-  setPlayerStep,
-  setIsIdleStatus,
-  setLoadedDataToStore,
-  setComputerPlayerSymbol,
-  settingIsGameStarted,
-  setGridSize,
-  setPlayersMode,
-} from "../../Redux/gameDataSlice.js";
+import * as gameData from "../../Redux/gameDataSlice.js";
 import store from "../../Redux/store.js";
 import Stack from "@mui/material/Stack";
 import WinnerModal from "./WinnerModal.js";
@@ -26,79 +11,54 @@ import GameOverModal from "./GameOverModal.js";
 export default function Board() {
   const USER_VS_CPU_MODE = 1;
   const {
-    gameMode: {
-      numOfPlayers,
-      gridSize: { rows: numRows, columns: numColumns },
-    },
-    gameStatus: {
-      isGameStarted,
-      arrayBoard: gameBoard,
-      currentTurnPlayer,
-      computerPlayerSymbol,
-      isWinnerExist,
-      isGameOver,
-      isIdleStatus,
-    },
-  } = useSelector((state) => state.gameData);
+    numOfPlayers,
+    gridSize: { rows: numRows, columns: numColumns },
+  } = useSelector((state) => state.gameData.gameMode);
+  const {
+    isGameStarted,
+    arrayBoard: gameBoard,
+    currentTurnPlayer,
+    computerPlayerSymbol,
+    isWinnerExist,
+    isGameOver,
+  } = useSelector((state) => state.gameData.gameStatus);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [openWinnerModal, setOpenWinnerModal] = useState(false);
   const [openGameOverModal, setOpenGameOverModal] = useState(false);
 
-  const popstarHandler = useCallback(() => {
-    if (window.confirm("האם אתה בטוח להתחיל משחק חדש?")) {
-      localStorage.clear();
-      navigate("/");
-    } else {
-      dispatch(settingIsGameStarted({ value: false }));
-      navigate("/PlayingGame");
-    }
-  }, [navigate]);
-
   useEffect(() => {
-    window.addEventListener("popstate", popstarHandler);
-  }, [popstarHandler]);
-
-  useEffect(() => {
-    const numOfPlayers = JSON.parse(localStorage.getItem("numOfPlayers"));
-    dispatch(setPlayersMode(numOfPlayers));
-    const { rows, columns } = JSON.parse(localStorage.getItem("gridSize"));
-    dispatch(setGridSize({ rows, columns }));
-
-    const loadedData = JSON.parse(localStorage.getItem("gameStatus"));
-    if (loadedData) {
-      dispatch(
-        setLoadedDataToStore({
-          key: "gameStatus",
-          value: loadedData,
-        })
-      );
-
-      dispatch(setArrayBoard(loadedData.arrayBoard));
-      dispatch(
-        setComputerPlayerSymbol({
-          computerPlayerSymbol: loadedData.computerPlayerSymbol,
-        })
-      );
-      dispatch(setCurrentTurnPlayer(loadedData.currentTurnPlayer));
-
-      setOpenWinnerModal(loadedData.isWinnerExist);
-      setOpenGameOverModal(loadedData.isGameOver);
-      return;
-    }
-
-    let arrayBoard = [];
-    for (let i = 0; i < numRows; i++) {
-      let rowToAdd = [];
-      for (let j = 0; j < numColumns; j++) {
-        rowToAdd.push({ rowIndex: i, columnIndex: j, value: null });
+    const handlePopstate = () => {
+      // Perform actions based on history navigation changes
+      if (window.confirm("האם אתה בטוח שאתה רוצה להתחיל משחק חדש?")) {
+        localStorage.clear();
+        dispatch(gameData.resetStore());
+        window.removeEventListener("popstate", handlePopstate);
+        navigate("/");
+      } else {
+        dispatch(gameData.settingIsGameStarted(false));
+        window.removeEventListener("popstate", handlePopstate);
+        navigate("/PlayingGame");
       }
-      arrayBoard.push(rowToAdd);
-    }
+    };
+    window.addEventListener("popstate", handlePopstate);
+    // return () => {
+    //   window.removeEventListener('popstate', handlePopstate);
+    // };
+  }, []);
 
-    dispatch(setArrayBoard(arrayBoard));
+  const savingGameStatusInLocalStorage = () => {
+    const {
+      isGameStarted,
+      arrayBoard,
+      currentTurnPlayer,
+      computerPlayerSymbol,
+      isWinnerExist,
+      isGameOver,
+      isIdleStatus,
+    } = store.getState().gameData.gameStatus;
 
-    const gameStatusToSave = {
+    const gameStatusDataToSave = {
       isGameStarted,
       arrayBoard,
       currentTurnPlayer,
@@ -108,39 +68,77 @@ export default function Board() {
       isIdleStatus,
     };
 
-    localStorage.setItem("gameStatus", JSON.stringify(gameStatusToSave));
+    localStorage.setItem("gameStatus", JSON.stringify(gameStatusDataToSave));
+  };
+
+  useEffect(() => {
+    //Loading saved data and setting it in redux store:
+    const hasStoreNumOfPlayers =
+      !!store.getState().gameData.gameMode.numOfPlayers;
+    if (!hasStoreNumOfPlayers) {
+      const numOfPlayers = JSON.parse(localStorage.getItem("numOfPlayers"));
+      if (numOfPlayers) {
+        dispatch(gameData.setPlayersMode(numOfPlayers));
+      }
+    }
+    const hasStoreGridSize = !!store.getState().gameData.gameMode.gridSize.rows;
+    if (!hasStoreGridSize) {
+      const { rows, columns } = JSON.parse(localStorage.getItem("gridSize"));
+      if (rows && columns) {
+        dispatch(gameData.setGridSize({ rows, columns }));
+      }
+    }
+
+    const gameStatusData = JSON.parse(localStorage.getItem("gameStatus"));
+    if (gameStatusData) {
+      gameStatusData.isGameStarted = false;
+      dispatch(
+        gameData.setLoadedDataToStore({
+          values: gameStatusData,
+        })
+      );
+
+      setOpenWinnerModal(gameStatusData.isWinnerExist);
+      setOpenGameOverModal(gameStatusData.isGameOver);
+
+      return;
+    }
+
+    //  Initializing new game board and
+    //  saving all new data in local storage:
+    let arrayBoard = [];
+    for (let i = 0; i < numRows; i++) {
+      let rowToAdd = [];
+      for (let j = 0; j < numColumns; j++) {
+        rowToAdd.push({ rowIndex: i, columnIndex: j, value: null });
+      }
+      arrayBoard.push(rowToAdd);
+    }
+
+    dispatch(gameData.setArrayBoard(arrayBoard));
+
+    savingGameStatusInLocalStorage();
   }, []);
 
   useEffect(() => {
     if (isGameStarted) {
       let isWinnerExist;
-      dispatch(searchingForWinner({ numRows, numColumns }));
+      dispatch(gameData.searchingForWinner({ numRows, numColumns }));
       isWinnerExist = store.getState().gameData.gameStatus.isWinnerExist;
       if (!isWinnerExist) {
         let isGameOver;
-        dispatch(checkingForGameOver({ numRows, numColumns }));
+        dispatch(gameData.checkingForGameOver({ numRows, numColumns }));
         isGameOver = store.getState().gameData.gameStatus.isGameOver;
         if (!isGameOver) {
-          dispatch(switchPlayerTurn());
+          dispatch(gameData.switchPlayerTurn());
         } else {
-          dispatch(settingGameOverStatusOn());
+          dispatch(gameData.settingGameOverStatusOn());
         }
       } else {
-        dispatch(settingWinnerStatusOn(currentTurnPlayer));
+        dispatch(gameData.settingWinnerStatusOn(currentTurnPlayer));
       }
 
-      const updatedCurrentTurnPlayer =
-        store.getState().gameData.gameStatus.currentTurnPlayer;
-      const newGameStatusObj = {
-        isGameStarted,
-        arrayBoard: [...gameBoard],
-        currentTurnPlayer: updatedCurrentTurnPlayer,
-        computerPlayerSymbol,
-        isWinnerExist,
-        isGameOver,
-        isIdleStatus,
-      };
-      localStorage.setItem("gameStatus", JSON.stringify(newGameStatusObj));
+      savingGameStatusInLocalStorage();
     }
   }, [gameBoard]);
 
@@ -161,10 +159,12 @@ export default function Board() {
         }
       }
 
-      dispatch(setIsIdleStatus({ status: true }));
+      dispatch(gameData.setIsIdleStatus({ status: true }));
       setTimeout(() => {
-        dispatch(setPlayerStep({ rowIndex, columnIndex, currentTurnPlayer }));
-        dispatch(setIsIdleStatus({ status: false }));
+        dispatch(
+          gameData.setPlayerStep({ rowIndex, columnIndex, currentTurnPlayer })
+        );
+        dispatch(gameData.setIsIdleStatus({ status: false }));
       }, 1000);
     }
   }, [currentTurnPlayer]);
