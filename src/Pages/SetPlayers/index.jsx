@@ -6,6 +6,8 @@ import {
   setComputerPlayerSymbol,
 } from "../../Redux/gameDataSlice";
 import { Stack } from "@mui/material";
+import MainImg from "../../assets/MainPageImg.jpg";
+import style from "../../assets/SetPlayers.module.css";
 
 export default function SetPlayersPage() {
   const navigate = useNavigate();
@@ -29,13 +31,15 @@ export default function SetPlayersPage() {
     <>
       <Stack alignItems="center" spacing={8}>
         <img
-          style={{ width: "60%", height: "50%" }}
-          src="https://thumbs.dreamstime.com/z/tic-tac-toe-1652844.jpg?w=992"
+          // style={{ width: "100vw", height: "40vh"}}
+          // src="https://thumbs.dreamstime.com/z/tic-tac-toe-1652844.jpg?w=992"
+          src={MainImg}
           alt="Set players main img"
         />
-        <Stack alignItems="center" spacing={1}>
+        <Stack alignItems="center" spacing={3}>
           <button
-            style={{ direction: "rtl" }}
+            // style={{ direction: "rtl" }}
+            className={style.mainButton}
             onClick={() => {
               clickHandler({ numOfPlayers: USER_VS_CPU_MODE });
             }}
@@ -43,7 +47,8 @@ export default function SetPlayersPage() {
             שחקן נגד מחשב
           </button>
           <button
-            style={{ direction: "rtl" }}
+            // style={{ direction: "rtl" }}
+            className={style.mainButton}
             onClick={() => {
               clickHandler({ numOfPlayers: USER_VS_USER_MODE });
             }}
