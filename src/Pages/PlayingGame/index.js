@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import style from "../../assets/PlayingGame.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Square from "./square.jsx";
