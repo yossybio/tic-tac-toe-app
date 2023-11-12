@@ -1,4 +1,5 @@
 import React from "react";
+import style from "../../assets/PlayingGame.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import {
   settingIsGameStarted,
@@ -13,7 +14,7 @@ export default function Square({ rowIndex, columnIndex }) {
 
   const clickHandler = () => {
     if (!isGameStarted) {
-      dispatch(settingIsGameStarted({value: true}));
+      dispatch(settingIsGameStarted({ value: true }));
     }
 
     dispatch(setIsIdleStatus({ status: true }));
@@ -25,7 +26,8 @@ export default function Square({ rowIndex, columnIndex }) {
 
   return (
     <button
-      style={{ width: 50, height: 50 }}
+      className={style.boardButton}
+      // style={{ width: 50, height: 50 }}
       onClick={clickHandler}
       disabled={
         arrayBoard[rowIndex][columnIndex].value !== null || isIdleStatus

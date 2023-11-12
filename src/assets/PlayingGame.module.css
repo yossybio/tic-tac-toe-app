@@ -1,0 +1,50 @@
+.boardButton {
+  border: 0;
+  background-color: #F1F1F1;
+  width: 4vw;
+  height: 4vw;
+}
+
+button:hover {
+  background-color: white;
+}
+
+button:disabled {
+  font-family: Arial;
+  font-size: 3.5rem;
+  color: black;
+  font-weight: bold;
+}
+
+.table {
+  background-color: #F1F1F1;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+.table td {
+  /* padding: 1rem; */
+  border: 5px solid black;
+}
+
+.table tr:first-child td {
+  border-top: 0;
+}
+
+.table tr td:first-child {
+  border-left: 0;
+}
+
+.table tr:last-child td {
+  border-bottom: 0;
+}
+
+.table tr td:last-child {
+  border-right: 0;
+}
+
+
+.text {
+  font-family: 'Secular One', sans-serif;
+  font-family: 'Varela Round', sans-serif;
+}

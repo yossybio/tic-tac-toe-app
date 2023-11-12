@@ -200,19 +200,25 @@ export default function Board() {
   };
 
   return (
-    <Stack
-      justifyContent="center"
-      alignItems="center"
-      spacing={2}
-      paddingTop={"15%"}
-    >
-      <h3 dir="rtl">{`תור שחקן ${currentTurnPlayer === "X" ? "X" : "O"}`}</h3>
-      <WinnerModal open={openWinnerModal} />
-      <GameOverModal open={openGameOverModal} />
-      <table>
-        <tbody>{buildingBoardGame()}</tbody>
-      </table>
-      <h3 dir="rtl">מקם 3 ברציפות!</h3>
-    </Stack>
+    <>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Varela+Round&display=swap" rel="stylesheet" />
+      </head>
+      <Stack
+        justifyContent="center"
+        alignItems="center"
+        spacing={2}
+      >
+        <h3 className={style.text} dir="rtl">{`תור שחקן ${currentTurnPlayer === "X" ? "X" : "O"}`}</h3>
+        <WinnerModal open={openWinnerModal} />
+        <GameOverModal open={openGameOverModal} />
+        <table className={style.table}>
+          <tbody>{buildingBoardGame()}</tbody>
+        </table>
+        <h3 className={style.text} dir="rtl">מקם {numRows} ברציפות!</h3>
+      </Stack>
+    </>
   );
 }
