@@ -31,59 +31,53 @@ export default function SetPlayersPage() {
 
   };
 
-  return (
-    <>
-      <body>
-        <Stack alignItems="center" spacing={8}>
-          <Box component="img"
-            src={MainImg} alt="Set players main img"
-            sx={{
-              height: "auto",
-              width: {
-                xs: "65%",
-                sm: "55%",
-                md: "45%",
-                lg: "30%",
-              }
-            }} />
-          <Stack alignItems="center" spacing={3}>
-            <Button
-              variant="outlined"
-              size="large"
-              onClick={() => {
-                clickHandler({ numOfPlayers: USER_VS_CPU_MODE });
-              }}
-              component={motion.div}
-              whileHover={{
-                backgroundColor: "white",
-                scale: 1.2,
-                transition: { duration: 0.3 }
-              }}
-              whileTap={{ scale: [1.5, 1.2], transition: { duration: 0.25 } }}
-              sx={{ backgroundColor: "#F9F7F7", color: "black" }}
-            >
-              שחקן נגד מחשב
-            </Button>
-            <Button
-              variant="outlined"
-              size="large"
-              onClick={() => {
-                clickHandler({ numOfPlayers: USER_VS_USER_MODE });
-              }}
-              component={motion.div}
-              whileHover={{
-                backgroundColor: "white",
-                scale: 1.2,
-                transition: { duration: 0.3 }
-              }}
-              whileTap={{ scale: [1.5, 1.2], transition: { duration: 0.25 } }}
-              sx={{ backgroundColor: "#F9F7F7", color: "black" }}
-            >
-              שחקן נגד שחקן
-            </Button>
-          </Stack>
-        </Stack>
-      </body>
-    </>
-  );
+  return (<Stack className={styles.background} alignItems="center" spacing={8}>
+    <Box component="img"
+      src={MainImg} alt="Set players main img"
+      sx={{
+        height: "auto",
+        width: {
+          xs: "65%",
+          sm: "55%",
+          md: "45%",
+          lg: "30%",
+        }
+      }} />
+    <Stack alignItems="center" spacing={3}>
+      <Button
+        variant="outlined"
+        size="large"
+        onClick={() => {
+          clickHandler({ numOfPlayers: USER_VS_CPU_MODE });
+        }}
+        component={motion.div}
+        whileHover={{
+          backgroundColor: "white",
+          scale: 1.2,
+          transition: { duration: 0.3 }
+        }}
+        whileTap={{ scale: [1.5, 1.2], transition: { duration: 0.25 } }}
+        sx={{ backgroundColor: "#F9F7F7", color: "black" }}
+      >
+        שחקן נגד מחשב
+      </Button>
+      <Button
+        variant="outlined"
+        size="large"
+        onClick={() => {
+          clickHandler({ numOfPlayers: USER_VS_USER_MODE });
+        }}
+        component={motion.div}
+        whileHover={{
+          backgroundColor: "white",
+          scale: 1.2,
+          transition: { duration: 0.3 }
+        }}
+        whileTap={{ scale: [1.5, 1.2], transition: { duration: 0.25 } }}
+        sx={{ backgroundColor: "#F9F7F7", color: "black" }}
+      >
+        שחקן נגד שחקן
+      </Button>
+    </Stack>
+  </Stack>)
 }

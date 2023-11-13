@@ -1,5 +1,5 @@
 import React from "react";
-import style from "../../assets/setGridPage.module.css";
+import styles from "../../assets/setGridPage.module.css";
 import { Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -31,8 +31,8 @@ export default function SetGridPage() {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Varela+Round&display=swap" rel="stylesheet" />
       </head>
-      <Stack justifyContent="center" alignItems="center" spacing={10} className={styled.backgroundColor}>
-        <h1 className={style.setGridHeader}>בחר את גודל הלוח</h1>
+      <Stack justifyContent="center" alignItems="center" spacing={10} className={styles.background}>
+        <h1 className={styles.setGridHeader}>בחר את גודל הלוח</h1>
         <Stack direction={"row"} spacing={4}>
           {/* <button
             onClick={() => {

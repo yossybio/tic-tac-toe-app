@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import style from "../../assets/setGridPage.module.css";
+import styles from "../../assets/setGridPage.module.css";
 
 const GridSizeComp = (props) => {
     let gridSymbol = [];
@@ -18,7 +18,7 @@ const GridSizeComp = (props) => {
                 <tr key={row[index]}>
                     {row.map(function (cell, index) {
                         return (
-                            <td key={cell[index]} className={style.tdModal} style={{ width: props.cellSize.width, height: props.cellSize.height }}>
+                            <td key={cell[index]} className={styles.tdModal} style={{ width: props.cellSize.width, height: props.cellSize.height }}>
                             </td>
                         );
                     })}
@@ -28,9 +28,9 @@ const GridSizeComp = (props) => {
     }, []);
 
     return (
-        <button onClick={() => { props.onClick(props.gridSize) }} className={style.gridButton}>
-            <h4 className={style.buttonHeader}>{`${props.gridSize.rows}X${props.gridSize.columns}`}</h4>
-            <table className={`${style.center} ${style.tableSpacing}`}>
+        <button onClick={() => { props.onClick(props.gridSize) }} className={styles.gridButton}>
+            <h4 className={styles.buttonHeader}>{`${props.gridSize.rows}X${props.gridSize.columns}`}</h4>
+            <table className={`${styles.center} ${styles.tableSpacing}`}>
                 <tbody>{buildingGridSymbol()}</tbody>
             </table>
         </button>)

@@ -1,6 +1,7 @@
-body {
+.background {
   background-color: #DBE2EF;
-  margin-top: 10rem;
+  width: 100vw;
+  height: 100vh;
 }
 
 .gridButton {

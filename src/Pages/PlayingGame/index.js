@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import style from "../../assets/PlayingGame.module.css";
+import styles from "../../assets/PlayingGame.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Square from "./square.jsx";
@@ -207,17 +207,18 @@ export default function Board() {
         <link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Varela+Round&display=swap" rel="stylesheet" />
       </head>
       <Stack
+        className={styles.background}
         justifyContent="center"
         alignItems="center"
         spacing={2}
       >
-        <h3 className={style.text} dir="rtl">{`תור שחקן ${currentTurnPlayer === "X" ? "X" : "O"}`}</h3>
+        <h3 className={styles.text} dir="rtl">{`תור שחקן ${currentTurnPlayer === "X" ? "X" : "O"}`}</h3>
         <WinnerModal open={openWinnerModal} />
         <GameOverModal open={openGameOverModal} />
-        <table className={style.table}>
+        <table className={styles.table}>
           <tbody>{buildingBoardGame()}</tbody>
         </table>
-        <h3 className={style.text} dir="rtl">מקם {numRows} ברציפות!</h3>
+        <h3 className={styles.text} dir="rtl">מקם {numRows} ברציפות!</h3>
       </Stack>
     </>
   );

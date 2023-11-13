@@ -1,5 +1,10 @@
 
-body {
+.background {
     background-color: #112D4E;
+    width: 100vw;
+    height: 100vh;
+}
+
+body {
     margin: 0;
 }
