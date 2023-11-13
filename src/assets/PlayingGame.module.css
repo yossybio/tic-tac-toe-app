@@ -6,6 +6,7 @@
 }
 
 .boardButton {
+  text-align: center;
   border: 0;
   background-color: #F1F1F1;
   width: 4vw;
@@ -18,9 +19,10 @@ button:hover {
 
 button:disabled {
   font-family: Arial;
-  font-size: 3.5rem;
+  font-size: 3.25vw;
   color: black;
   font-weight: bold;
+  padding: inherit;
 }
 
 .table {
