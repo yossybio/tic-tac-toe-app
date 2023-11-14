@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, memo } from "react";
 import styles from "../../assets/setGridPage.module.css";
 
 const GridSizeComp = (props) => {
@@ -36,4 +36,4 @@ const GridSizeComp = (props) => {
         </button>)
 };
 
-export default GridSizeComp;
+export default memo(GridSizeComp);

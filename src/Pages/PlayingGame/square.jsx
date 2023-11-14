@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "../../assets/PlayingGame.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -7,7 +7,7 @@ import {
   setIsIdleStatus,
 } from "../../Redux/gameDataSlice";
 
-export default function Square({ rowIndex, columnIndex }) {
+export default memo(function Square({ rowIndex, columnIndex }) {
   const { isGameStarted, arrayBoard, currentTurnPlayer, isIdleStatus } =
     useSelector((state) => state.gameData.gameStatus);
   const dispatch = useDispatch();
@@ -38,4 +38,4 @@ export default function Square({ rowIndex, columnIndex }) {
         : arrayBoard[rowIndex][columnIndex].value}
     </button>
   );
-}
+})

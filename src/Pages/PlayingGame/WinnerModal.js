@@ -1,4 +1,4 @@
-// import React from "react";
+import React, { memo } from "react";
 // import * as React from "react";
 import styles from "../../assets/modal.module.css";
 import woodImg from "../../assets/WoodBackgroundImg.jpg";
@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { resetStore } from "../../Redux/gameDataSlice";
 import { useNavigate } from "react-router-dom";
 
-export default function WinnerModal(props) {
+export default memo(function WinnerModal(props) {
   //   const [open, setOpen] = React.useState(false);
   //   const handleOpen = () => setOpen(true);
   //   const handleClose = () => setOpen(false);
@@ -79,4 +79,4 @@ export default function WinnerModal(props) {
       </Box>
     </Modal>
   );
-}
+})
