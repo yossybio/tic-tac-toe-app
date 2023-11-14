@@ -1,5 +1,7 @@
 // import React from "react";
 // import * as React from "react";
+import styles from "../../assets/modal.module.css";
+import woodImg from "../../assets/WoodBackgroundImg.jpg";
 import Box from "@mui/material/Box";
 // import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -25,9 +27,12 @@ export default function WinnerModal(props) {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 400,
-    bgcolor: "background.paper",
+    // bgcolor: "background.paper",
+    backgroundImage: `url(${woodImg})`,
     border: "2px solid #000",
     boxShadow: 24,
+    color: "#F9F7F7",
+    textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black",
     p: 4,
   };
 
@@ -40,9 +45,9 @@ export default function WinnerModal(props) {
   return (
     <Modal
       open={props.open}
-      //   onClose={handleClose}
-      //   aria-labelledby="modal-modal-title"
-      //   aria-describedby="modal-modal-description"
+    //   onClose={handleClose}
+    //   aria-labelledby="modal-modal-title"
+    //   aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
         {/* <Typography id="modal-modal-title" variant="h6" component="h2">
@@ -51,21 +56,26 @@ export default function WinnerModal(props) {
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
           Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
         </Typography> */}
-        <Grid container justifyContent="center" alignItems="center" spacing={2}>
-          <Grid md={6}>
-            <h1 style={{ textAlign: "center" }}>
-              {winnerPlayer === "X" ? "X" : "O"}
-            </h1>
-          </Grid>
-          <Grid md={6}>
-            <h1 style={{ textAlign: "center" }}>
-              Player {winnerPlayer === "X" ? "X" : "O"} Wins!!!
-            </h1>
-          </Grid>
-          <Grid md={12}>
-            <button onClick={clickHandler} style={{ width: "100%" }}>PLAY AGAIN</button>
-          </Grid>
-        </Grid>
+        <Typography id="modal-modal-title" variant="h3" dir="rtl" component="h2">
+          שחקן {winnerPlayer} ניצח!!!
+        </Typography>
+        <button className={styles.playAgainButton} onClick={clickHandler}>שחק שוב</button>
+        {/* <Grid container justifyContent="center" alignItems="center" spacing={2}>
+            <Grid md={6}>
+              {/* <h1 style={{ textAlign: "center"}}>
+              <h1 className={`${styles.center} ${styles.font} ${winnerPlayer === "X" ? styles.redText : ""}`}>
+                {winnerPlayer === "X" ? "X" : "O"}
+              </h1>
+            </Grid>
+            <Grid md={6}>
+              <h1 style={{ textAlign: "center" }}>
+                Player {winnerPlayer === "X" ? "X" : "O"} Wins!!!
+              </h1>
+            </Grid>
+            <Grid md={12}>
+              <button onClick={clickHandler} style={{ width: "100%" }}>PLAY AGAIN</button>
+            </Grid>
+          </Grid> */}
       </Box>
     </Modal>
   );

@@ -13,7 +13,7 @@
   height: 4vw;
 }
 
-button:hover {
+.button:hover {
   background-color: white;
 }
 
@@ -23,6 +23,10 @@ button:disabled {
   color: black;
   font-weight: bold;
   padding: inherit;
+}
+
+.redButton:disabled {
+  color: red;
 }
 
 .table {
