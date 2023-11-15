@@ -9,8 +9,6 @@
   text-align: center;
   border: 0;
   background-color: #F1F1F1;
-  width: 4vw;
-  height: 4vw;
 }
 
 .button:hover {
@@ -19,7 +17,7 @@
 
 button:disabled {
   font-family: Arial;
-  font-size: 3.25vw;
+  font-size: 10vw;
   color: black;
   font-weight: bold;
   padding: inherit;
@@ -36,7 +34,6 @@ button:disabled {
 }
 
 .table td {
-  /* padding: 1rem; */
   border: 5px solid black;
 }
 
