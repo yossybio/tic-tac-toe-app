@@ -35,8 +35,7 @@ export default memo(function WinnerModal(props) {
 
   return (
     <Modal
-      // open={props.open}
-      open={true}
+      open={props.open}
     >
       <Box sx={style}>
         <Typography id="modal-modal-title" variant="h3" dir="rtl" component="h2" textAlign="center">
