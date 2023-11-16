@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../assets/PlayingGame.module.css";
+import Grid from '@mui/material/Grid';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableRow from '@mui/material/TableRow';
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Square from "./square.jsx";
@@ -43,9 +49,6 @@ export default function Board() {
       }
     };
     window.addEventListener("popstate", handlePopstate);
-    // return () => {
-    //   window.removeEventListener('popstate', handlePopstate);
-    // };
   }, []);
 
   const savingGameStatusInLocalStorage = () => {
@@ -183,18 +186,23 @@ export default function Board() {
   const buildingBoardGame = () => {
     return gameBoard.map(function (row, index) {
       return (
-        <tr key={row[index].rowIndex}>
+        <TableRow key={row[index].rowIndex}>
           {row.map(function (cell) {
+            const gridDimention = numRows;
             return (
-              <td key={cell.columnIndex}>
+              <TableCell sx={{
+                padding: 0,
+                width: { xs: (100 / gridDimention) + "vw", sm: (100 / gridDimention) + "vw", md: (40 / gridDimention) + "vw" },
+                height: { xs: (100 / gridDimention) + "vw", sm: (100 / gridDimention) + "vw", md: (40 / gridDimention) + "vw" }
+              }} key={cell.columnIndex}>
                 <Square
                   rowIndex={cell.rowIndex}
                   columnIndex={cell.columnIndex}
                 />
-              </td>
+              </TableCell>
             );
           })}
-        </tr>
+        </TableRow>
       );
     });
   };
@@ -215,9 +223,19 @@ export default function Board() {
         <h3 className={styles.text} dir="rtl">{`תור שחקן ${currentTurnPlayer === "X" ? "X" : "O"}`}</h3>
         <WinnerModal open={openWinnerModal} />
         <GameOverModal open={openGameOverModal} />
-        <table className={styles.table}>
-          <tbody>{buildingBoardGame()}</tbody>
-        </table>
+        <Grid container justifyContent="center"
+          alignItems="center" spacing={0}>
+          <Grid item>
+            {/* <TableContainer component={Paper}> */}
+            <TableContainer>
+              <Table className={styles.table}>
+                <TableBody>
+                  {buildingBoardGame()}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Grid>
+        </Grid>
         <h3 className={styles.text} dir="rtl">מקם {numRows} ברציפות!</h3>
       </Stack>
     </>

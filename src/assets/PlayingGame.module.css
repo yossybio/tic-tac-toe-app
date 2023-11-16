@@ -1,4 +1,3 @@
-
 .background {
   background-color: #DBE2EF;
   width: 100vw;
@@ -6,9 +5,12 @@
 }
 
 .boardButton {
-  text-align: center;
-  border: 0;
   background-color: #F1F1F1;
+  border: 0;
+  height: 100%;
+  padding: 5px;
+  text-align: center;
+  width: 100%;
 }
 
 .button:hover {
@@ -17,10 +19,9 @@
 
 button:disabled {
   font-family: Arial;
-  font-size: 10vw;
+  font-size: 4vw;
   color: black;
   font-weight: bold;
-  padding: inherit;
 }
 
 .redButton:disabled {
@@ -34,7 +35,7 @@ button:disabled {
 }
 
 .table td {
-  border: 5px solid black;
+  border: 1px solid black;
 }
 
 .table tr:first-child td {

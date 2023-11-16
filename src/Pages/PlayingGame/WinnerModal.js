@@ -1,5 +1,4 @@
 import React, { memo } from "react";
-// import * as React from "react";
 import styles from "../../assets/modal.module.css";
 import woodImg from "../../assets/WoodBackgroundImg.jpg";
 import Box from "@mui/material/Box";
