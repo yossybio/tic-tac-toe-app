@@ -19,10 +19,38 @@
 
 button:disabled {
   font-family: Arial;
-  font-size: 4vw;
   color: black;
   font-weight: bold;
 }
+
+@media (max-width: 900px) {
+  .fontSize3Dimention {
+    font-size: 15vw
+  }
+
+  .fontSize5Dimention {
+    font-size: 8vw
+  }
+
+  .fontSize7Dimention {
+    font-size: 8vw
+  }
+}
+
+@media (min-width: 900px) {
+  .fontSize3Dimention {
+    font-size: 10vw
+  }
+
+  .fontSize5Dimention {
+    font-size: 6vw
+  }
+
+  .fontSize7Dimention {
+    font-size: 4.2vw
+  }
+}
+
 
 .redButton:disabled {
   color: red;

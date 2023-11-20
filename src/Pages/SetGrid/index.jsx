@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setGridSize } from "../../Redux/gameDataSlice";
 import GridSizeComp from "./GridSizeComp";
-import styled from "@emotion/styled";
 
 export default function SetGridPage() {
   const navigate = useNavigate();
@@ -33,7 +32,7 @@ export default function SetGridPage() {
       </head>
       <Stack justifyContent="center" alignItems="center" spacing={10} className={styles.background}>
         <h1 className={styles.setGridHeader}>בחר את גודל הלוח</h1>
-        <Stack direction={"row"} spacing={4}>
+        <Stack direction={"row"} spacing={1}>
           {/* <button
             onClick={() => {
               clickHandler(BOARD_SIZE_3X3);

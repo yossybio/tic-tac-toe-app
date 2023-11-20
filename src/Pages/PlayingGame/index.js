@@ -31,6 +31,7 @@ export default function Board() {
   } = useSelector((state) => state.gameData.gameStatus);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const gridDimention = numRows;
   const [openWinnerModal, setOpenWinnerModal] = useState(false);
   const [openGameOverModal, setOpenGameOverModal] = useState(false);
 
@@ -188,7 +189,6 @@ export default function Board() {
       return (
         <TableRow key={row[index].rowIndex}>
           {row.map(function (cell) {
-            const gridDimention = numRows;
             return (
               <TableCell sx={{
                 padding: 0,
@@ -198,6 +198,7 @@ export default function Board() {
                 <Square
                   rowIndex={cell.rowIndex}
                   columnIndex={cell.columnIndex}
+                  gridDimention={gridDimention}
                 />
               </TableCell>
             );
@@ -226,7 +227,6 @@ export default function Board() {
         <Grid container justifyContent="center"
           alignItems="center" spacing={0}>
           <Grid item>
-            {/* <TableContainer component={Paper}> */}
             <TableContainer>
               <Table className={styles.table}>
                 <TableBody>
