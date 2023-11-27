@@ -53,10 +53,10 @@ export default function SetPlayersPage() {
         component={motion.div}
         whileHover={{
           backgroundColor: "white",
-          scale: 1.2,
-          transition: { duration: 0.3 }
+          scale: 1.1,
         }}
-        whileTap={{ scale: [1.5, 1.2], transition: { duration: 0.25 } }}
+        whileTap={{ scale: 1.2 }}
+        transition={{ type: "spring", stiffness: 500 }}
         sx={{ backgroundColor: "#F9F7F7", color: "black" }}
       >
         שחקן נגד מחשב
@@ -70,10 +70,10 @@ export default function SetPlayersPage() {
         component={motion.div}
         whileHover={{
           backgroundColor: "white",
-          scale: 1.2,
-          transition: { duration: 0.3 }
+          scale: 1.1,
         }}
-        whileTap={{ scale: [1.5, 1.2], transition: { duration: 0.25 } }}
+        whileTap={{ scale: 1.2 }}
+        transition={{ type: "spring", stiffness: 500 }}
         sx={{ backgroundColor: "#F9F7F7", color: "black" }}
       >
         שחקן נגד שחקן
