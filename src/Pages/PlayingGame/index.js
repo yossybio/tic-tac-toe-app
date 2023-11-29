@@ -8,7 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Square from "./square.jsx";
+import Square from "./square.js";
 import * as gameData from "../../Redux/gameDataSlice.js";
 import store from "../../Redux/store.js";
 import Stack from "@mui/material/Stack";

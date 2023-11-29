@@ -1,7 +1,7 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import SetPlayersPage from "./Pages/SetPlayers/index.jsx";
-import SetGridPage from "./Pages/SetGrid/index.jsx";
+import SetPlayersPage from "./Pages/SetPlayers/index.js";
+import SetGridPage from "./Pages/SetGrid/index.js";
 import PlayingGame from "./Pages/PlayingGame/index.js";
 
 
