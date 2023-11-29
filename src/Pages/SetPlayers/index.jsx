@@ -27,8 +27,7 @@ export default function SetPlayersPage() {
     dispatch(setPlayersMode(numOfPlayers));
     dispatch(setComputerPlayerSymbol({ computerPlayerSymbol: "O" }));
     savingDataInLocalStorage(numOfPlayers);
-    setTimeout(() => { navigate("/setGrid"); }, 500);
-
+    navigate("/setGrid");
   };
 
   return (<Stack className={styles.background} alignItems="center" spacing={8}>

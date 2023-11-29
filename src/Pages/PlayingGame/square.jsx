@@ -28,13 +28,10 @@ export default memo(function Square({ rowIndex, columnIndex, gridDimention }) {
     switch (gridDimention) {
       case 3:
         return `${styles.fontSize3Dimention}`
-        break;
       case 5:
         return `${styles.fontSize5Dimention}`
-        break;
       case 7:
         return `${styles.fontSize7Dimention}`
-        break;
     
       default:
         break;

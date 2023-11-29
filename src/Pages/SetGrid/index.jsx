@@ -33,37 +33,14 @@ export default function SetGridPage() {
       <Stack justifyContent="center" alignItems="center" spacing={10} className={styles.background}>
         <h1 className={styles.setGridHeader}>בחר את גודל הלוח</h1>
         <Stack direction={"row"} spacing={1}>
-          {/* <button
-            onClick={() => {
-              clickHandler(BOARD_SIZE_3X3);
-            }}
-          >
-            3X3
-          </button> */}
           <GridSizeComp gridSize={BOARD_SIZE_3X3} onClick={clickHandler} cellSize={{
             width: 16,
             height: 12
           }} />
-
-          {/* <button
-            onClick={() => {
-              clickHandler(BOARD_SIZE_5X5);
-            }}
-          >
-            5X5
-          </button> */}
           <GridSizeComp gridSize={BOARD_SIZE_5X5} onClick={clickHandler} cellSize={{
             width: 4,
             height: 3
           }} />
-
-          {/* <button
-            onClick={() => {
-              clickHandler(BOARD_SIZE_7X7);
-            }}
-          >
-            7X7
-          </button> */}
           <GridSizeComp gridSize={BOARD_SIZE_7X7} onClick={clickHandler} cellSize={{
             width: 0.25,
             height: 0.125
